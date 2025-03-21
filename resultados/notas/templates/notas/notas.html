@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Formulario de Notas{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F0F8FF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #FF6347;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        nav {
+            background-color: #FF1493;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #FF69B4;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #FF1493;
+        }
+
+        form {
+            background-color: #FFF8DC;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 2px solid #FF6347;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #FF1493;
+        }
+
+        button {
+            background-color: #FF6347;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #FF1493;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        .error {
+            background-color: #FFD700;
+            color: red;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            font-size: 1.2rem;
+        }
+
+        .aprobado {
+            background-color: #98FB98;
+            color: green;
+        }
+
+        .suspenso {
+            background-color: #FF6347;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de menú -->
+    <nav>
+        <a href="{% url 'notas' %}">Formulario de Notas</a>
+        <a href="{% url 'listar_notas' %}">Ver Notas</a>
+    </nav>
+
+    <h1>¡Bienvenido a tu Calculadora de Notas! 🎉</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="matematicas_o_historia">Nota final Matemáticas o Historia:</label>
+            {{ form.matematicas_o_historia }}
+        </div>
+        <div>
+            <label for="lengua_y_litertura">Nota final Lengua y Literatura:</label>
+            {{ form.lengua_y_litertura }}
+        </div>
+        <div>
+            <label for="idioma">Nota final Inglés:</label>
+            {{ form.idioma }}
+        </div>
+        <div>
+            <label for="prueba_especifica">Nota final Prueba Específica:</label>
+            {{ form.prueba_especifica }}
+        </div>
+
+        <button type="submit">Calcular Notas 📊</button>
+    </form>
+
+    {% if form.errors %}
+        <div class="error">
+            <p>Por favor, ingresa las notas correctamente entre 0 y 10.</p>
+        </div>
+    {% endif %}
+
+    {% if resultado %}
+        <div class="resultado {% if nota_media >= 5 %}aprobado{% else %}suspenso{% endif %}">
+            <h2>Resultado</h2>
+            <p>Nota media: {{ nota_media }}</p>
+            <p>{{ resultado }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

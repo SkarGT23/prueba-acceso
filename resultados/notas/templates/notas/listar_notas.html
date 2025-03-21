@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Notas</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #FFFAF0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #FF6347;
+        }
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #FF6347;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Notas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Matemáticas/Historia</th>
+                <th>Lengua y Literatura</th>
+                <th>Inglés</th>
+                <th>Prueba Específica</th>
+                <th>Nota Media</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+                <tr>
+                    <td>{{ nota.matematicas_o_historia }}</td>
+                    <td>{{ nota.lengua_y_litertura }}</td>
+                    <td>{{ nota.idioma }}</td>
+                    <td>{{ nota.prueba_especifica }}</td>
+                    <td>{{ nota.nota_media }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
+

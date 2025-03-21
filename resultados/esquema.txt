@@ -1,0 +1,27 @@
+resultados/
+├── manage.py  # Archivo principal para la gestión del proyecto Django
+├── resultados/
+│   ├── __init__.py  # Indica que este directorio es un módulo de Python
+│   ├── settings.py  # Configuración del proyecto (bases de datos, apps instaladas, etc.)
+│   ├── urls.py  # Archivo de configuración de URLs del proyecto
+│   ├── wsgi.py  # Configuración para el servidor WSGI
+│   └── asgi.py  # Configuración para el servidor ASGI (soporte para websockets)
+│
+└── notas/  # Aplicación 'notas' dentro del proyecto
+    ├── __init__.py  # Indica que este directorio es un módulo de Python
+    ├── admin.py  # Configuración del panel de administración para la app 'notas'
+    ├── apps.py  # Configuración de la aplicación 'notas'
+    ├── forms.py  # Formularios para el manejo de datos (opcional, según necesidad)
+    ├── models.py  # Definición de modelos y estructuras de datos para 'notas'
+    ├── tests.py  # Pruebas unitarias para la app 'notas'
+    ├── views.py  # Vistas que manejan la lógica de negocio y renderizan las respuestas
+    ├── urls.py  # Configuración de URLs específicas para la app 'notas'
+    └── templates/  # Carpeta para los archivos HTML de la app 'notas'
+        ├── base.html  # Archivo HTML base que puede ser extendido por otras plantillas
+        ├── index.html  # Página principal de la aplicación 'notas'
+        ├── formulario.html  # Archivo HTML para un formulario
+        └── listar_notas.html  # Página para listar las notas
+
+
+
+

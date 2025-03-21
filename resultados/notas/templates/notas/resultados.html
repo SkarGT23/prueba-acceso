@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Notas</title>
+    <style>
+        /* Fondo de la página con tonos metálicos y modernos */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #f7d1cd, #ff73fa); /* Degradado entre fucsias y rosas */
+            color: #333;  /* Texto oscuro para contraste */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d1006b; /* Fucsia metálico */
+            font-size: 3em;
+            margin-top: 40px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra metálica */
+        }
+
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #fff5f7; /* Fondo rosa suave */
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Estilo para los campos de entrada */
+        input[type="number"] {
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ff0066; /* Fucsia */
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            width: 100%;
+            background-color: #ffe6f0; /* Rosa claro */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 0, 102, 0.4); /* Efecto metálico */
+        }
+
+        input[type="number"]:focus {
+            border-color: #ff1aff;
+            outline: none;
+            box-shadow: 0 0 12px rgba(255, 26, 255, 0.7);
+        }
+
+        /* Botón redondo y metálico */
+        button {
+            background-color: #ff0066; /* Fucsia brillante */
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2em;
+            border-radius: 50px; /* Hacemos el botón redondo */
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(255, 0, 102, 0.3);
+            transition: all 0.3s ease;
+            border: 3px solid #ff1aff;
+        }
+
+        button:hover {
+            background-color: #ff1aff; /* Fucsia más brillante */
+            box-shadow: 0 10px 20px rgba(255, 26, 255, 0.6);
+        }
+
+        button:active {
+            background-color: #d1006b; /* Fucsia más oscuro */
+            transform: scale(0.95); /* Efecto de "presionar" el botón */
+        }
+
+        /* Mensajes de resultado */
+        .resultado {
+            margin-top: 40px;
+            padding: 30px;
+            text-align: center;
+            font-size: 2.5em; /* Tamaño grande */
+            font-weight: bold;
+            border-radius: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 5px solid #000000; /* Borde metálico */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff73fa, #ff0066);
+            color: white;
+        }
+
+        /* Para suspensos (alarma) */
+        .resultado.suspenso {
+            background: linear-gradient(45deg, #ff4d4d, #e60000); /* Rojo metálico */
+            color: white;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        /* Para aprobados (alivio) */
+        .resultado.aprobado {
+            background: linear-gradient(45deg, #87cefa, #1e90ff); /* Azul cielo metálico */
+            color: #004a6f; /* Azul oscuro */
+            box-shadow: 0 0 15px rgba(135, 206, 250, 0.5);
+        }
+
+        /* Efecto de animación de "sacudida" para la alarma */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(10px); }
+        }
+
+        .resultado p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        /* Barra de progreso */
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 30px;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Colores dinámicos de la barra de progreso */
+        .progress-bar.green {
+            background-color: #4caf50; /* Verde */
+        }
+
+        .progress-bar.orange {
+            background-color: #ff9800; /* Naranja */
+        }
+
+        .progress-bar.red {
+            background-color: #f44336; /* Rojo */
+        }
+
+        /* Detalles adicionales */
+        .nota {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        /* Estilo para los títulos */
+        h2 {
+            color: #070707;
+            font-size: 2.2em;
+            text-align: center;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Barra de navegación común */
+        nav {
+            background-color: #ff0066;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 1.2em;
+        }
+
+        nav a:hover {
+            background-color: #ff1aff;
+        }
+
+        /* Estilos para el botón de broma */
+        #broma-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px 60px; /* Aumentar tamaño del botón */
+            background-color: #ff7700;
+            color: white;
+            font-size: 1.5em; /* Aumentar tamaño de texto */
+            border-radius: 25px; /* Hacerlo más redondeado */
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(255, 0, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        #broma-button:hover {
+            background-color: #ff1aff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación común -->
+    <nav>
+        <a href="{% url 'notas' %}">Página Principal</a>
+        <a href="{% url 'listar_notas' %}">Lista de Notas</a>
+    </nav>
+
+    <h1>¡Bienvenido a tu Calculadora de Notas! 🎉</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="nota">
+            <label for="matematicas_o_historia">Nota final Matemáticas o Historia</label>
+            {{ form.matematicas_o_historia }}
+        </div>
+        <div class="nota">
+            <label for="lengua_y_litertura">Nota final Lengua y Literatura</label>
+            {{ form.lengua_y_litertura }}
+        </div>
+        <div class="nota">
+            <label for="idioma">Nota final Inglés</label>
+            {{ form.idioma }}
+        </div>
+        <div class="nota">
+            <label for="prueba_especifica">Nota final Prueba Específica</label>
+            {{ form.prueba_especifica }}
+        </div>
+
+        <button type="submit">Calcular Notas 📊</button>
+    </form>
+
+    {% if resultado %}
+        <div class="resultado {% if nota_media >= 5 %}aprobado{% else %}suspenso{% endif %}">
+            <h2>Resultado</h2>
+            <p>Nota media: {{ nota_media }}</p>
+            <p>{{ resultado }}</p>
+        </div>
+    {% endif %}
+
+    <!-- Botón de broma -->
+    <button id="broma-button" onclick="botonDeBroma()">Salir</button>
+
+    <script>
+        let contador = 0;
+
+        function botonDeBroma() {
+            const boton = document.getElementById('broma-button');
+
+            if (contador === 0) {
+                boton.innerText = "VENGA QUE PUEDES";
+                boton.style.left = Math.random() * 80 + "%";
+                boton.style.top = Math.random() * 80 + "%";
+                contador++;
+            } else if (contador === 1) {
+                boton.innerText = "SIII , DAME MAS, ME GUSTA";
+                boton.style.left = Math.random() * 80 + "%";
+                boton.style.top = Math.random() * 80 + "%";
+                contador++;
+            } else {
+                boton.innerText = "¡VENGA TE DOY LO QUE MAS DESEAS!";
+                setTimeout(() => {
+                    window.location.href = "https://www.telecinco.es/supervivientes/";
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
+
